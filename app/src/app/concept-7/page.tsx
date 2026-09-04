@@ -179,8 +179,7 @@ export default function Concept7() {
             <div className="flex flex-col-reverse items-center gap-10 lg:flex-row lg:items-end lg:justify-between lg:gap-8">
               <div className="w-full max-w-[620px]">
                 <h1 className="ml-h1">
-                  Free{" "}
-                  <span className="ml-italic ml-span-60 inline-block align-baseline">Gentle</span>{" "}
+                  Free, <span className="ml-italic ml-span-60 inline-block align-baseline">gentle</span>{" "}
                   Dental Exam &amp; <span className="whitespace-nowrap">X-Ray</span>
                 </h1>
               </div>
