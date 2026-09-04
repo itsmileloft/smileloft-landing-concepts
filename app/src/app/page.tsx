@@ -7,6 +7,7 @@ const CONCEPTS = [
   { href: "/concept-4", label: "Concept 4" },
   { href: "/concept-5", label: "Concept 5" },
   { href: "/concept-6", label: "Concept 6" },
+  { href: "/concept-7", label: "Concept 7" },
 ];
 
 export default function Home() {

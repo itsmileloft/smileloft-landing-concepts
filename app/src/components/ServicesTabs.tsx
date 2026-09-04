@@ -15,7 +15,33 @@ export type ServiceTabItem = {
  * tab, the panel content crossfades. Custom lightweight implementation
  * (no headless-UI tabs primitive in this project) using framer-motion.
  */
-export function ServicesTabs({ items, className }: { items: ServiceTabItem[]; className?: string }) {
+export function ServicesTabs({
+  items,
+  className,
+  activeTextClassName = "text-[#f6efe5]",
+  activeBgClassName = "bg-[#48120e]",
+  inactiveTextClassName = "text-[#48120e]",
+  inactiveBorderClassName = "border-[#48120e]/12 hover:border-[#48120e]/30",
+  numberClassName = "text-[#8a7a63]",
+  numberActiveClassName = "text-[#f6efe5]/70",
+  panelBorderClassName = "border-[#48120e]/10",
+  eyebrowClassName = "text-xs font-bold uppercase tracking-[0.1em] text-[#8a7a63]",
+  titleClassName = "mt-3 text-lg font-bold uppercase tracking-tight text-[#48120e]",
+  bodyClassName = "mt-4 text-sm text-[#48120e]/75",
+}: {
+  items: ServiceTabItem[];
+  className?: string;
+  activeTextClassName?: string;
+  activeBgClassName?: string;
+  inactiveTextClassName?: string;
+  inactiveBorderClassName?: string;
+  numberClassName?: string;
+  numberActiveClassName?: string;
+  panelBorderClassName?: string;
+  eyebrowClassName?: string;
+  titleClassName?: string;
+  bodyClassName?: string;
+}) {
   const [active, setActive] = useState(0);
   const reduce = useReducedMotion();
   const current = items[active];
@@ -37,16 +63,11 @@ export function ServicesTabs({ items, className }: { items: ServiceTabItem[]; cl
               className={cn(
                 "flex items-center gap-4 rounded-2xl border px-5 py-4 text-left transition-colors",
                 isActive
-                  ? "border-transparent bg-[#48120e] text-[#f6efe5]"
-                  : "border-[#48120e]/12 bg-white text-[#48120e] hover:border-[#48120e]/30"
+                  ? cn("border-transparent", activeBgClassName, activeTextClassName)
+                  : cn("bg-white", inactiveTextClassName, inactiveBorderClassName)
               )}
             >
-              <span
-                className={cn(
-                  "text-sm font-bold tabular-nums",
-                  isActive ? "text-[#f6efe5]/70" : "text-[#8a7a63]"
-                )}
-              >
+              <span className={cn("text-sm font-bold tabular-nums", isActive ? numberActiveClassName : numberClassName)}>
                 {item.num}
               </span>
               <span className="text-base font-bold uppercase tracking-tight">{item.title}</span>
@@ -55,7 +76,7 @@ export function ServicesTabs({ items, className }: { items: ServiceTabItem[]; cl
         })}
       </div>
 
-      <div className="relative min-h-[220px] overflow-hidden rounded-2xl border border-[#48120e]/10 bg-white p-8 sm:p-10">
+      <div className={cn("relative min-h-[220px] overflow-hidden rounded-2xl border bg-white p-8 sm:p-10", panelBorderClassName)}>
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={current.num}
@@ -67,9 +88,9 @@ export function ServicesTabs({ items, className }: { items: ServiceTabItem[]; cl
             exit={reduce ? undefined : { opacity: 0, y: -10 }}
             transition={{ duration: reduce ? 0 : 0.3, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span className="sx-eyebrow">{current.num} / {String(items.length).padStart(2, "0")}</span>
-            <h3 className="sx-h6 mt-3">{current.title}</h3>
-            <p className="sx-body mt-4 text-[#48120e]/75">{current.body}</p>
+            <span className={eyebrowClassName}>{current.num} / {String(items.length).padStart(2, "0")}</span>
+            <h3 className={titleClassName}>{current.title}</h3>
+            <p className={bodyClassName}>{current.body}</p>
           </motion.div>
         </AnimatePresence>
       </div>

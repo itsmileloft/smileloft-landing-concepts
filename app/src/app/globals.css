@@ -679,3 +679,233 @@
   letter-spacing: 0.1em;
   color: var(--md-blue);
 }
+
+/* ---------- Medilea (concept-7) design tokens ---------- */
+.medilea {
+  --ml-primary: #09735c;
+  --ml-navy: #0f1e4c;
+  --ml-paragraph: #575757;
+  --ml-section: #f1f7f3;
+  --ml-stroke: #d6d6d6;
+  font-family: var(--font-mona-sans), var(--font-sans), sans-serif;
+  background-color: #ffffff;
+  color: var(--ml-navy);
+}
+
+.medilea .ml-italic {
+  font-family: var(--font-playfair-display), Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+}
+
+/* Heading 1 — hero headline */
+.medilea .ml-h1 {
+  font-weight: 500;
+  color: var(--ml-navy);
+  line-height: 110%;
+  font-size: 44px;
+}
+
+@media (min-width: 768px) {
+  .medilea .ml-h1 {
+    font-size: 60px;
+  }
+}
+
+@media (min-width: 1380px) {
+  .medilea .ml-h1 {
+    font-size: 90px;
+  }
+}
+
+/* Heading 2 — section headings (color inherited from .medilea's navy
+   default; pass a Tailwind text-* class on dark backgrounds to override) */
+.medilea .ml-h2 {
+  font-weight: 500;
+  line-height: 115%;
+  font-size: 38px;
+}
+
+@media (min-width: 768px) {
+  .medilea .ml-h2 {
+    font-size: 48px;
+  }
+}
+
+@media (min-width: 1380px) {
+  .medilea .ml-h2 {
+    font-size: 60px;
+  }
+}
+
+/* Heading 2 — Playfair italic accent variant, same size scale */
+.medilea .ml-h2-playfair {
+  font-family: var(--font-playfair-display), Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--ml-navy);
+  line-height: 110%;
+  font-size: 38px;
+}
+
+@media (min-width: 768px) {
+  .medilea .ml-h2-playfair {
+    font-size: 48px;
+  }
+}
+
+@media (min-width: 1380px) {
+  .medilea .ml-h2-playfair {
+    font-size: 60px;
+  }
+}
+
+/* Heading 4 */
+.medilea .ml-h4 {
+  font-weight: 500;
+  color: var(--ml-navy);
+  line-height: 120%;
+  font-size: 24px;
+}
+
+@media (min-width: 768px) {
+  .medilea .ml-h4 {
+    font-size: 28px;
+  }
+}
+
+@media (min-width: 1380px) {
+  .medilea .ml-h4 {
+    font-size: 34px;
+  }
+}
+
+/* Heading 5 */
+.medilea .ml-h5 {
+  font-weight: 500;
+  color: var(--ml-navy);
+  line-height: 125%;
+  font-size: 22px;
+}
+
+@media (min-width: 1380px) {
+  .medilea .ml-h5 {
+    font-size: 26px;
+  }
+}
+
+/* Heading 6 */
+.medilea .ml-h6 {
+  font-weight: 500;
+  color: var(--ml-navy);
+  line-height: 130%;
+  font-size: 22px;
+}
+
+@media (min-width: 1380px) {
+  .medilea .ml-h6 {
+    font-size: 24px;
+  }
+}
+
+/* Text/Span 160px — giant background text, right-aligned, green */
+.medilea .ml-span-160 {
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: left;
+  color: var(--ml-primary);
+  line-height: 90%;
+  font-size: 50px;
+}
+
+@media (min-width: 768px) {
+  .medilea .ml-span-160 {
+    font-size: 70px;
+  }
+}
+
+@media (min-width: 1380px) {
+  .medilea .ml-span-160 {
+    font-size: 160px;
+  }
+}
+
+/* Text/Span 120px — giant background text, left-aligned, navy */
+.medilea .ml-span-120 {
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: right;
+  color: var(--ml-navy);
+  line-height: 90%;
+  font-size: 44px;
+}
+
+@media (min-width: 768px) {
+  .medilea .ml-span-120 {
+    font-size: 60px;
+  }
+}
+
+@media (min-width: 1380px) {
+  .medilea .ml-span-120 {
+    font-size: 120px;
+  }
+}
+
+/* Text/Span 90px — Playfair italic accent, inline large */
+.medilea .ml-span-90 {
+  font-family: var(--font-playfair-display), Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 105%;
+  font-size: 38px;
+}
+
+@media (min-width: 768px) {
+  .medilea .ml-span-90 {
+    font-size: 60px;
+  }
+}
+
+@media (min-width: 1380px) {
+  .medilea .ml-span-90 {
+    font-size: 90px;
+  }
+}
+
+/* Text/Span 60px — Playfair italic accent, smaller inline variant */
+.medilea .ml-span-60 {
+  font-family: var(--font-playfair-display), Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 110%;
+  font-size: 34px;
+}
+
+@media (min-width: 768px) {
+  .medilea .ml-span-60 {
+    font-size: 44px;
+  }
+}
+
+@media (min-width: 1380px) {
+  .medilea .ml-span-60 {
+    font-size: 60px;
+  }
+}
+
+/* Body */
+.medilea .ml-body {
+  font-weight: 400;
+  color: var(--ml-paragraph);
+  line-height: 150%;
+  font-size: 16px;
+}
+
+.medilea .ml-body-upper {
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  line-height: 130%;
+  font-size: 14px;
+}

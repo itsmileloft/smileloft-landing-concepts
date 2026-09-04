@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Fraunces, Rethink_Sans, Bebas_Neue, Bayon, Montserrat } from "next/font/google";
+import { Inter, Fraunces, Rethink_Sans, Bebas_Neue, Bayon, Montserrat, Mona_Sans, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -58,6 +58,28 @@ const montserrat = Montserrat({
   display: "swap",
 });
 
+// Used only by /concept-7 (Medilea port) — scoped via the `.medilea` class
+// on that page's root wrapper for its body/heading font. Mona Sans is
+// available in next/font/google (variable weight, includes an italic
+// style), so no fallback substitution was needed.
+const monaSans = Mona_Sans({
+  variable: "--font-mona-sans",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+// Used only by /concept-7 (Medilea port) — scoped via the `.medilea` class,
+// for its italic Playfair accent headings (H2-Playfair / Text-Span-90px /
+// Text-Span-60px). Only the italic style + weight 500 are loaded since
+// that's the only cut Medilea's design actually uses.
+const playfairDisplay = Playfair_Display({
+  variable: "--font-playfair-display",
+  subsets: ["latin"],
+  style: ["italic"],
+  weight: ["500"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Free Dental Exam & X-Ray | Smile Loft Dental",
   description:
@@ -68,7 +90,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${fraunces.variable} ${rethinkSans.variable} ${bebasNeue.variable} ${bayon.variable} ${montserrat.variable} h-full antialiased`}
+      className={`${inter.variable} ${fraunces.variable} ${rethinkSans.variable} ${bebasNeue.variable} ${bayon.variable} ${montserrat.variable} ${monaSans.variable} ${playfairDisplay.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
