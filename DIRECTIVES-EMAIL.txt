@@ -1,0 +1,34 @@
+Subject: 5 Landing Page Concepts Ready for Review — Free Exam & X-Ray Offer
+
+Hi [Boss's name],
+
+I've put together 5 live design directions for our "Free Exam & X-Ray" landing page, as a starting point for the full site redesign:
+
+Live links: https://itsmileloft.github.io/smileloft-landing-concepts/
+
+Note: I'll keep adding more concepts to this same link over the coming days, so check back for updates.
+
+All 5 share the same core structure and behavior:
+- Same offer and lead form (name, phone, email, preferred location) on every page
+- Animated hero section with a clear headline and CTA
+- Smooth scroll animations throughout
+- Fully responsive on mobile, with a sticky "Book Now" button that appears as you scroll
+- Different visual direction each — light vs. dark, minimal vs. bold, photo-led vs. video-led
+
+Note on media: All images and the one video used are placeholders (stock photography / a sample clip) just to show layout and feel — nothing here is final. Once we pick a direction, we'd swap in real photos/video of our offices, team, and patients.
+
+My recommendation: [add your take once you've reviewed — e.g. "I lean toward Concept X, but like the hero treatment on Concept Y."]
+
+What I need from you:
+- Light or dark? Which overall feel fits us — bright/clinical, warm/calm, or bold/dark?
+- Color palette — any preference, or should I propose 2-3 options once we settle on direction?
+- Images vs. video — how much of each do we want, and can we get real footage/photos of our offices and team?
+- Content depth — lean single-scroll page, or fuller with more sections (FAQs, team, process, etc.)?
+- Sections/features to include — reviews widget, before-and-after photos, staff bios, insurance/financing info, real booking calendar vs. simple form, multi-location picker, blog/patient education?
+- Anything missing — features or sections you've seen elsewhere that we should have?
+- Brand assets — can you confirm the official logo file and exact brand colors to lock in?
+
+Happy to walk through all 5 live on a call if that's easier. Let me know what works.
+
+Thanks,
+[Your name]
