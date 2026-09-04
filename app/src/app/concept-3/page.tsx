@@ -17,6 +17,7 @@ import { HeroVideo } from "@/components/HeroVideo";
 import { Parallax, useHeroParallax } from "@/components/Parallax";
 import { StickyCtaBar } from "@/components/StickyCtaBar";
 import { STOCK_PHOTOS, unsplashUrl } from "@/lib/stock-photos";
+import { withBasePath } from "@/lib/utils";
 
 
 const CARDS = [
@@ -84,7 +85,7 @@ export default function Concept3() {
         {/* Hero */}
         <section ref={heroRef} className="relative flex min-h-[max(832px,calc(100vh-68px))] flex-col justify-center overflow-hidden px-5 py-16 sm:px-8 lg:justify-start lg:pt-20">
           <HeroVideo
-            src="/bannerVideo.mp4"
+            src={withBasePath("/bannerVideo.mp4")}
             overlayClassName="bg-[#0a0f1a]/70"
           />
           <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-transparent via-[#0a0f1a]/70 to-[#0a0f1a]" />

@@ -29,6 +29,7 @@ import { HeroVideo } from "@/components/HeroVideo";
 import { Parallax, useHeroParallax } from "@/components/Parallax";
 import { motion } from "framer-motion";
 import { STOCK_PHOTOS, unsplashUrl } from "@/lib/stock-photos";
+import { withBasePath } from "@/lib/utils";
 
 
 const HERO_SERVICES = [
@@ -202,7 +203,7 @@ export default function Concept2() {
               className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl shadow-xl sm:aspect-[6/5] lg:aspect-auto lg:min-h-[600px] lg:w-[52%]"
             >
               <HeroVideo
-                src="/bannerVideo.mp4"
+                src={withBasePath("/bannerVideo.mp4")}
                 focus="right center"
                 overlayClassName="bg-gradient-to-t from-[#48120e]/45 via-transparent to-transparent"
                 className="rounded-3xl"

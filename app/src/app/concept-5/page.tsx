@@ -14,6 +14,7 @@ import { FaqAccordion } from "@/components/FaqAccordion";
 import { ServiceAccordion, type ServiceAccordionItem } from "@/components/ServiceAccordion";
 import { StickyCtaBar } from "@/components/StickyCtaBar";
 import { STOCK_PHOTOS, unsplashUrl } from "@/lib/stock-photos";
+import { withBasePath } from "@/lib/utils";
 
 const SERVICE_ACCORDION_ITEMS: ServiceAccordionItem[] = [
   {
@@ -127,7 +128,7 @@ export default function Concept5() {
         {/* ---------------- Hero ---------------- */}
         <section className="relative flex h-[calc(100vh-68px)] min-h-[640px] flex-col justify-end overflow-hidden px-5 pb-10 pt-[100px] sm:px-8 sm:pb-10 sm:pt-[140px] lg:px-10">
           <HeroVideo
-            src="/bannerVideo.mp4"
+            src={withBasePath("/bannerVideo.mp4")}
             overlayClassName="bg-[#141414]/35 bg-gradient-to-b from-transparent via-transparent to-[#141414]"
           />
           {/* extra readability gradient concentrated in the bottom band where text sits */}

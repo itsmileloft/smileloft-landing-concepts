@@ -29,7 +29,7 @@ import { GiantWatermark } from "@/components/GiantWatermark";
 import { FloatingStatCard } from "@/components/FloatingStatCard";
 import { LOCATIONS } from "@/lib/locations";
 import { STOCK_PHOTOS, unsplashUrl } from "@/lib/stock-photos";
-import { cn } from "@/lib/utils";
+import { cn, withBasePath } from "@/lib/utils";
 
 const HERO_SERVICES = [
   "Comprehensive exam",
@@ -263,7 +263,7 @@ export default function Concept4() {
             <ScrollReveal direction="scale" delay={0.15} className="relative w-full lg:w-[48%]">
               <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl shadow-2xl sm:aspect-[6/5] lg:aspect-auto lg:min-h-[620px]">
                 <HeroVideo
-                  src="/bannerVideo.mp4"
+                  src={withBasePath("/bannerVideo.mp4")}
                   focus="right center"
                   overlayClassName="bg-[#f7413e]/25 mix-blend-multiply"
                   className="rounded-3xl"

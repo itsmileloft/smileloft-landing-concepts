@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import { cn, withBasePath } from "@/lib/utils";
 
 export function Header({
   className,
@@ -36,7 +36,7 @@ export function Header({
             )}
           >
             <Image
-              src="/smileloft-logo.png"
+              src={withBasePath("/smileloft-logo.png")}
               alt="Smile Loft Dental"
               width={110}
               height={38}
