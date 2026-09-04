@@ -8,6 +8,8 @@ Live link: https://itsmileloft.github.io/smileloft-landing-concepts/
 
 Note: Additional concepts will be added to this same link over time.
 
+Please go through each direction and let me know your thoughts, suggestions, and directive on which elements to carry forward.
+
 All five directions share the same core structure and behavior:
 - Identical offer and lead form (name, phone, email, preferred location) on every page
 - A hero section with a clear headline and call to action
