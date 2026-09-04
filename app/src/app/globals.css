@@ -552,3 +552,130 @@
   line-height: 1.4em;
   font-size: 16px;
 }
+
+/* ---------- MedDocX (concept-6) design tokens ---------- */
+.meddocx {
+  --md-blue: #0145f0;
+  --md-dark-blue: #011139;
+  --md-bg: #f5f7fc;
+  --md-white: #ffffff;
+  font-family: var(--font-montserrat), var(--font-sans), sans-serif;
+  background-color: var(--md-white);
+  color: var(--md-dark-blue);
+}
+
+/* Heading 1 — hero */
+.meddocx .md-h1 {
+  font-weight: 700;
+  color: var(--md-dark-blue);
+  line-height: 50px;
+  font-size: 40px;
+}
+
+@media (min-width: 810px) {
+  .meddocx .md-h1 {
+    font-size: 46px;
+    line-height: 50px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .meddocx .md-h1 {
+    font-size: 52px;
+    line-height: 58px;
+  }
+}
+
+/* Heading 2 — section headings */
+.meddocx .md-h2 {
+  font-weight: 700;
+  color: var(--md-dark-blue);
+  letter-spacing: 0.76px;
+  line-height: 100%;
+  font-size: 32px;
+}
+
+@media (min-width: 810px) {
+  .meddocx .md-h2 {
+    font-size: 36px;
+    letter-spacing: 0.86px;
+    line-height: 100%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .meddocx .md-h2 {
+    font-size: 46px;
+    letter-spacing: 0.96px;
+    line-height: 120%;
+  }
+}
+
+/* Heading 3 */
+.meddocx .md-h3 {
+  font-weight: 700;
+  color: var(--md-dark-blue);
+  line-height: 110%;
+  font-size: 22px;
+}
+
+@media (min-width: 810px) {
+  .meddocx .md-h3 {
+    font-size: 24px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .meddocx .md-h3 {
+    font-size: 34px;
+  }
+}
+
+/* Heading 5 */
+.meddocx .md-h5 {
+  font-weight: 600;
+  color: #000000;
+  line-height: 120%;
+  font-size: 20px;
+}
+
+@media (min-width: 1200px) {
+  .meddocx .md-h5 {
+    font-size: 24px;
+  }
+}
+
+/* Body */
+.meddocx .md-body {
+  font-weight: 500;
+  line-height: 120%;
+  font-size: 16px;
+}
+
+@media (min-width: 1200px) {
+  .meddocx .md-body {
+    font-size: 18px;
+  }
+}
+
+/* Body 18 Semibold */
+.meddocx .md-body-semibold {
+  font-weight: 600;
+  color: var(--md-dark-blue);
+  line-height: 150%;
+  font-size: 16px;
+}
+
+@media (min-width: 810px) {
+  .meddocx .md-body-semibold {
+    font-size: 18px;
+  }
+}
+
+.meddocx .md-eyebrow {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--md-blue);
+}

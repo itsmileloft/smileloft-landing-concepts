@@ -84,6 +84,18 @@ export const STOCK_PHOTOS = {
     id: "1537368910025-700350fe46c7",
     alt: "Confident smiling dental team member, professional portrait",
   },
+  // Added for /concept-6 (MedDocX port) team section — distinct from the
+  // portraits already used by concept-4's and concept-5's rosters, so no
+  // two concepts show identical faces. Verified via HEAD request (curl -I)
+  // to images.unsplash.com — 200 OK.
+  meddocxPortraitOne: {
+    id: "1584467541268-b040f83be3fd",
+    alt: "Smiling dental professional in scrubs, professional portrait",
+  },
+  meddocxPortraitTwo: {
+    id: "1559839734-2b71ea197ec2",
+    alt: "Confident smiling clinician, professional portrait",
+  },
 } as const;
 
 export type StockPhotoKey = keyof typeof STOCK_PHOTOS;
