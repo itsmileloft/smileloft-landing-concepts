@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { cn, withBasePath } from "@/lib/utils";
+import { ShimmerButton } from "@/components/ShimmerButton";
 
 export function Header({
   className,
@@ -11,6 +12,7 @@ export function Header({
   ctaLabel = "Book Free Exam",
   formTargetId = "lead-form",
   sticky = true,
+  ctaShimmer = false,
 }: {
   className?: string;
   logoChipClassName?: string;
@@ -18,6 +20,7 @@ export function Header({
   ctaLabel?: string;
   formTargetId?: string;
   sticky?: boolean;
+  ctaShimmer?: boolean;
 }) {
   return (
     <header
@@ -45,15 +48,26 @@ export function Header({
             />
           </span>
         </Link>
-        <a
-          href={`#${formTargetId}`}
-          className={cn(
-            "inline-flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-semibold shadow-sm transition-transform hover:-translate-y-0.5",
-            ctaClassName
-          )}
-        >
-          {ctaLabel}
-        </a>
+        {ctaShimmer ? (
+          <ShimmerButton
+            className={cn("px-5 py-2.5 text-sm", ctaClassName)}
+            onClick={() => {
+              document.getElementById(formTargetId)?.scrollIntoView({ behavior: "smooth" });
+            }}
+          >
+            {ctaLabel}
+          </ShimmerButton>
+        ) : (
+          <a
+            href={`#${formTargetId}`}
+            className={cn(
+              "inline-flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-semibold shadow-sm transition-transform hover:-translate-y-0.5",
+              ctaClassName
+            )}
+          >
+            {ctaLabel}
+          </a>
+        )}
       </div>
     </header>
   );

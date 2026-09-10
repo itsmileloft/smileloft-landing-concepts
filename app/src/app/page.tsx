@@ -3,13 +3,8 @@ import Link from "next/link";
 import { withBasePath } from "@/lib/utils";
 
 const CONCEPTS = [
-  { href: "/concept-1", label: "Concept 1" },
-  { href: "/concept-2", label: "Concept 2" },
-  { href: "/concept-3", label: "Concept 3" },
-  { href: "/concept-4", label: "Concept 4" },
-  { href: "/concept-5", label: "Concept 5" },
-  { href: "/concept-6", label: "Concept 6" },
-  { href: "/concept-7", label: "Concept 7" },
+  { href: "/concept-5", label: "Concept 5", num: 5 },
+  { href: "/concept-2", label: "Concept 2", num: 2 },
 ];
 
 export default function Home() {
@@ -25,7 +20,7 @@ export default function Home() {
             >
               <div className="relative aspect-[1920/1000] w-full overflow-hidden bg-neutral-100">
                 <Image
-                  src={withBasePath(`/thumbnails/concept-${i + 1}.jpg`)}
+                  src={withBasePath(`/thumbnails/concept-${c.num}.jpg`)}
                   alt={`${c.label} preview`}
                   fill
                   sizes="(min-width: 1024px) 50vw, 100vw"

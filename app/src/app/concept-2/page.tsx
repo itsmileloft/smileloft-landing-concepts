@@ -22,9 +22,11 @@ import { ShimmerButton } from "@/components/ShimmerButton";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { CountUp } from "@/components/CountUp";
 import { FlipRevealCard } from "@/components/FlipRevealCard";
-import { ServicesTabs } from "@/components/ServicesTabs";
 import { TestimonialGrid } from "@/components/TestimonialGrid";
-import { LOCATIONS } from "@/lib/locations";
+import { ServicesTabs } from "@/components/ServicesTabs";
+import { DoctorExpandCards } from "@/components/DoctorExpandCard";
+import { LocationFlipCards } from "@/components/LocationFlipCards";
+import { LOCATIONS, LOCATION_DETAILS } from "@/lib/locations";
 import { HeroVideo } from "@/components/HeroVideo";
 import { Parallax, useHeroParallax } from "@/components/Parallax";
 import { motion } from "framer-motion";
@@ -37,6 +39,30 @@ const HERO_SERVICES = [
   "Digital HD X-rays",
   "Personalized treatment plan",
   "Dedicated Q&A",
+];
+
+const DOCTORS = [
+  {
+    name: "Dr. Laxmi Reddy",
+    jobTitle: "DDS, New York University Dental School",
+    photo: withBasePath("/doctors/dr-reddy.webp"),
+    bio: "One of the youngest graduates in NYU Dental School's history, Dr. Reddy completed her residency at Staten Island University Hospital. She specializes in Invisalign and Botox therapy for TMJ — a talented and compassionate dental professional, deeply committed to helping others.",
+  },
+  {
+    name: "Dr. Vaibhav Rai",
+    jobTitle: "DDS, Howard University",
+    photo: withBasePath("/doctors/dr-rai.webp"),
+    bio: "With advanced clinical training at a Transplant Institute and a residency at the VA Hospital in Washington, D.C., Dr. Rai excels in implant dentistry and endodontics — a highly skilled and compassionate clinician who mentors other dental professionals.",
+  },
+];
+
+const LOCATION_PHOTOS = [
+  STOCK_PHOTOS.emptyOperatory,
+  STOCK_PHOTOS.modernSuite,
+  STOCK_PHOTOS.galleryConsult,
+  STOCK_PHOTOS.galleryEquipment,
+  STOCK_PHOTOS.receptionWelcome,
+  STOCK_PHOTOS.galleryDetail,
 ];
 
 const FLIP_CARDS = [
@@ -162,7 +188,7 @@ export default function Concept2() {
               style={heroMotion}
               className="flex max-w-[500px] flex-col justify-between gap-10 lg:py-6"
             >
-              <ScrollReveal className="flex flex-col gap-[22px]">
+              <ScrollReveal once={false} className="flex flex-col gap-[22px]">
                 <p className="sx-eyebrow text-left">All smiles, no stress</p>
                 <h1 className="sx-h1">
                   Free Dental
@@ -184,7 +210,7 @@ export default function Concept2() {
               </ScrollReveal>
 
               {/* Service list card */}
-              <ScrollReveal delay={0.15} className="max-w-[350px] rounded-2xl border border-[#48120e]/10 bg-white p-6 shadow-sm">
+              <ScrollReveal once={false} delay={0.15} className="max-w-[350px] rounded-2xl border border-[#48120e]/10 bg-white p-6 shadow-sm">
                 <p className="sx-label text-[#48120e]/50">What&apos;s included</p>
                 <ul className="mt-4 flex flex-col gap-3">
                   {HERO_SERVICES.map((s) => (
@@ -236,7 +262,7 @@ export default function Concept2() {
         <section className="px-6 py-[88px] sm:px-8">
           <div className="mx-auto max-w-[1200px]">
             <div className="grid grid-cols-1 items-stretch gap-4 lg:grid-cols-[1fr_minmax(0,520px)]">
-              <div className="relative hidden min-h-[420px] overflow-hidden rounded-3xl shadow-lg lg:block">
+              <Parallax yRange={[-18, 18]} className="relative hidden min-h-[420px] overflow-hidden rounded-3xl shadow-lg lg:block">
                 <Image
                   src={unsplashUrl(STOCK_PHOTOS.emptyOperatory.id, 900)}
                   alt={STOCK_PHOTOS.emptyOperatory.alt}
@@ -251,8 +277,8 @@ export default function Concept2() {
                     Modern, light-filled treatment rooms — pick whichever office is closest to you.
                   </p>
                 </div>
-              </div>
-              <ScrollReveal id="lead-form" className="rounded-3xl border border-[#48120e]/10 bg-white p-6 shadow-lg sm:p-9">
+              </Parallax>
+              <ScrollReveal once={false} id="lead-form" className="rounded-3xl border border-[#48120e]/10 bg-white p-6 shadow-lg sm:p-9">
                 <LeadForm accentClassName="bg-[#8a7a63] text-white" successIconClassName="text-[#8a7a63]" />
               </ScrollReveal>
             </div>
@@ -262,11 +288,11 @@ export default function Concept2() {
         {/* ---------------- Problem + Solution flip cards ---------------- */}
         <section className="px-6 py-[88px] sm:px-8">
           <div className="mx-auto max-w-[1200px]">
-            <ScrollReveal className="mb-12 text-center">
+            <ScrollReveal once={false} className="mb-12 text-center">
               <p className="sx-eyebrow">Common concerns</p>
               <h2 className="sx-h5 mx-auto mt-3 max-w-[640px]">Tap a card to see how we handle it</h2>
             </ScrollReveal>
-            <ScrollRevealGroup className="flex flex-wrap justify-center gap-5">
+            <ScrollRevealGroup once={false} className="flex flex-wrap justify-center gap-5">
               {FLIP_CARDS.map((card) => (
                 <RevealItem key={card.step} className="flex justify-center">
                   <FlipRevealCard {...card} />
@@ -276,15 +302,69 @@ export default function Concept2() {
           </div>
         </section>
 
+        {/* ---------------- Doctors ---------------- */}
+        <section className="px-6 py-[88px] sm:px-8">
+          <div className="mx-auto max-w-[1200px]">
+            <ScrollReveal once={false} className="mb-10 text-center">
+              <p className="sx-eyebrow">Meet the doctors</p>
+              <h2 className="sx-h5">The people behind your care</h2>
+            </ScrollReveal>
+            <ScrollReveal once={false} delay={0.1}>
+              <DoctorExpandCards
+                doctors={DOCTORS}
+                cardBgClassName="bg-white"
+                overlayGradientClassName="bg-gradient-to-t from-[#48120e]/85 via-[#48120e]/15 to-transparent"
+                nameClassName="text-white"
+                jobTitleClassName="text-white/85"
+                bioClassName="text-white/85"
+              />
+            </ScrollReveal>
+          </div>
+        </section>
+
+        {/* ---------------- Locations ---------------- */}
+        <section className="bg-white/60 px-6 py-[88px] sm:px-8">
+          <div className="mx-auto max-w-[1320px]">
+            <ScrollReveal once={false} className="mb-10 text-center">
+              <p className="sx-eyebrow">10 Maryland locations</p>
+              <h2 className="sx-h5">Find a Smile Loft near you</h2>
+              <p className="sx-body mx-auto mt-4 max-w-lg text-[#48120e]/75">
+                Tap a card to see the address, then scroll to see them all.
+              </p>
+            </ScrollReveal>
+            <ScrollReveal once={false} delay={0.1}>
+              <LocationFlipCards
+                locations={LOCATION_DETAILS}
+                cardBgClassName="bg-white border border-[#48120e]/10"
+                frontTextClassName="text-[#48120e]"
+                backBgClassName="bg-[#48120e]"
+                backTextClassName="text-white"
+                accentClassName="text-[#8a7a63]"
+                progressBarClassName="bg-[#8a7a63]"
+                ctaClassName="bg-white text-[#48120e]"
+                renderPhoto={(loc, i) => (
+                  <Image
+                    src={unsplashUrl(LOCATION_PHOTOS[i % LOCATION_PHOTOS.length].id, 500)}
+                    alt={LOCATION_PHOTOS[i % LOCATION_PHOTOS.length].alt}
+                    fill
+                    sizes="300px"
+                    style={{ objectFit: "cover" }}
+                  />
+                )}
+              />
+            </ScrollReveal>
+          </div>
+        </section>
+
         {/* ---------------- Bento image grid ("why choose us") ---------------- */}
         <section className="px-6 py-[88px] sm:px-8">
           <div className="mx-auto max-w-[1200px]">
             <div className="mb-10 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-              <ScrollReveal className="max-w-[550px]">
+              <ScrollReveal once={false} className="max-w-[550px]">
                 <p className="sx-eyebrow">Why Smile Loft</p>
                 <h2 className="sx-h5 text-left">A closer look at your care</h2>
               </ScrollReveal>
-              <ScrollReveal delay={0.1}>
+              <ScrollReveal once={false} delay={0.1}>
                 <a
                   href="#lead-form"
                   className="inline-flex shrink-0 items-center justify-center rounded-full border-[1.5px] border-[#8a7a63] px-6 py-3 text-sm font-bold uppercase tracking-wide text-[#8a7a63] transition-colors hover:bg-[#8a7a63] hover:text-white"
@@ -293,7 +373,7 @@ export default function Concept2() {
                 </a>
               </ScrollReveal>
             </div>
-            <ScrollRevealGroup className="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:auto-rows-[220px] lg:min-h-[915px]">
+            <ScrollRevealGroup once={false} className="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:auto-rows-[220px] lg:min-h-[915px]">
               {BENTO_GRID.map((cell) => (
                 <RevealItem key={cell.title} className={cell.span}>
                   <div className="group relative h-full min-h-[240px] overflow-hidden rounded-2xl">
@@ -320,11 +400,11 @@ export default function Concept2() {
         {/* ---------------- Services tabs ---------------- */}
         <section className="bg-white/60 px-6 py-[88px] sm:px-8">
           <div className="mx-auto max-w-[1200px]">
-            <ScrollReveal className="mb-10 max-w-[550px]">
+            <ScrollReveal once={false} className="mb-10 max-w-[550px]">
               <p className="sx-eyebrow">Your visit, in detail</p>
               <h2 className="sx-h5 text-left">Five things your free visit covers</h2>
             </ScrollReveal>
-            <ScrollReveal delay={0.1}>
+            <ScrollReveal once={false} delay={0.1}>
               <ServicesTabs items={SERVICE_TABS} />
             </ScrollReveal>
           </div>
@@ -333,7 +413,7 @@ export default function Concept2() {
         {/* ---------------- Count-up stat ---------------- */}
         <section className="px-6 py-[88px] sm:px-8">
           <div className="mx-auto max-w-[1200px]">
-            <ScrollReveal>
+            <ScrollReveal once={false}>
               <BorderBeam color="#8a7a63" className="rounded-3xl">
                 <div className="flex flex-col items-center gap-4 rounded-3xl border border-[#48120e]/10 bg-white p-10 text-center shadow-sm sm:flex-row sm:justify-between sm:text-left">
                   <div>
@@ -359,7 +439,7 @@ export default function Concept2() {
         {/* ---------------- Testimonials ---------------- */}
         <section className="px-6 py-[88px] sm:px-8">
           <div className="mx-auto max-w-[1200px]">
-            <ScrollReveal className="mb-10 text-center">
+            <ScrollReveal once={false} className="mb-10 text-center">
               <p className="sx-eyebrow">Patient stories</p>
               <h2 className="sx-h5 mx-auto mt-3 max-w-[640px]">What patients tell us</h2>
             </ScrollReveal>
@@ -370,7 +450,7 @@ export default function Concept2() {
         {/* ---------------- Value card ---------------- */}
         <section className="px-6 py-[88px] sm:px-8">
           <div className="mx-auto max-w-[680px]">
-            <ScrollReveal>
+            <ScrollReveal once={false}>
               <div className="rounded-3xl border border-[#48120e]/10 bg-white p-8 text-center shadow-lg sm:p-12">
                 <p className="sx-eyebrow">Today&apos;s visit</p>
                 <div className="mt-3 text-4xl font-bold uppercase tracking-tight sm:text-5xl">
@@ -399,7 +479,7 @@ export default function Concept2() {
 
         {/* ---------------- Trust strip ---------------- */}
         <section className="px-6 py-14 sm:px-8">
-          <ScrollReveal className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-center gap-x-8 gap-y-3 text-center text-sm font-semibold text-[#48120e]/80">
+          <ScrollReveal once={false} className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-center gap-x-8 gap-y-3 text-center text-sm font-semibold text-[#48120e]/80">
             {["10 Maryland locations", "No cost, no obligation", "New & returning patients welcome", "Most insurance accepted"].map((t) => (
               <span key={t} className="inline-flex items-center gap-2">
                 <CheckCircle2 className="h-4 w-4 text-[#8a7a63]" />
@@ -412,11 +492,11 @@ export default function Concept2() {
         {/* ---------------- FAQ ---------------- */}
         <section className="px-6 py-[88px] sm:px-8">
           <div className="mx-auto max-w-[720px]">
-            <ScrollReveal className="mb-10 text-center">
+            <ScrollReveal once={false} className="mb-10 text-center">
               <p className="sx-eyebrow">Questions</p>
               <h2 className="sx-h5 mx-auto mt-3">Frequently asked questions</h2>
             </ScrollReveal>
-            <ScrollReveal>
+            <ScrollReveal once={false}>
               <FaqAccordion
                 items={FAQS}
                 triggerClassName="text-[#48120e]"
@@ -427,7 +507,7 @@ export default function Concept2() {
 
         {/* ---------------- Final CTA ---------------- */}
         <section className="px-6 pb-24 sm:px-8">
-          <ScrollReveal className="mx-auto max-w-[720px] rounded-3xl bg-[#48120e] p-10 text-center text-[#f6efe5]">
+          <ScrollReveal once={false} className="mx-auto max-w-[720px] rounded-3xl bg-[#48120e] p-10 text-center text-[#f6efe5]">
             <Eye className="mx-auto mb-4 h-8 w-8 opacity-80" />
             <h2 className="sx-h5 text-[#f6efe5]">Ready to get a clearer picture of your smile?</h2>
             <p className="sx-body mx-auto mt-3 max-w-md text-[#f6efe5]/80">

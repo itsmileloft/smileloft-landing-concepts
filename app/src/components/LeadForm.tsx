@@ -49,6 +49,7 @@ export function LeadForm({
   accentClassName = "bg-primary text-primary-foreground",
   submitLabel = "Book My Free Exam & X-Ray",
   title = "Book My Free Exam & X-Ray",
+  titleClassName,
   lead = "For new patients and those returning to routine care. Takes about 60 seconds.",
   successIconClassName = "text-primary",
 }: {
@@ -57,6 +58,7 @@ export function LeadForm({
   accentClassName?: string;
   submitLabel?: string;
   title?: string;
+  titleClassName?: string;
   lead?: string;
   successIconClassName?: string;
 }) {
@@ -96,7 +98,7 @@ export function LeadForm({
             exit={reduce ? undefined : { opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <h3 className="text-xl font-bold sm:text-2xl">{title}</h3>
+            <h3 className={cn("text-xl font-bold sm:text-2xl", titleClassName)}>{title}</h3>
             <p className="mt-2 text-sm opacity-80 sm:text-base">{lead}</p>
 
             <form noValidate onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
