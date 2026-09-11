@@ -22,50 +22,73 @@ import { withBasePath } from "@/lib/utils";
 
 const SERVICE_ACCORDION_ITEMS: ServiceAccordionItem[] = [
   {
-    serviceTitle: "Comprehensive exam",
-    price: "$250 value — free",
-    shortDescription:
-      "A full evaluation of your teeth, gums, and bite from a licensed dentist, reviewed with you in plain language.",
+    serviceTitle: "Personalized implant evaluation",
+    price: "Free",
+    shortDescription: "A close look at your teeth, gums, and bone support.",
   },
   {
-    serviceTitle: "Digital HD X-rays",
+    serviceTitle: "Dental imaging when needed",
     price: "Free",
-    shortDescription:
-      "High-resolution imaging with up to 80% less radiation than traditional film — results appear on screen in seconds.",
+    shortDescription: "Clinically appropriate imaging to support your evaluation.",
   },
   {
-    serviceTitle: "Personalized treatment plan",
+    serviceTitle: "Transparent cost conversation",
     price: "Free",
-    shortDescription:
-      "Clear next steps and priced options, written in plain language. No pressure to decide anything on the spot.",
+    shortDescription: "Individual cost considerations, explained clearly — not a generic number.",
   },
   {
-    serviceTitle: "Dedicated Q&A",
+    serviceTitle: "Time for all your questions",
     price: "Free",
-    shortDescription:
-      "Time set aside specifically for your questions — about your results, your options, or anything dental-related.",
+    shortDescription: "No rush, no sales pitch. Ask everything before deciding anything.",
   },
 ];
 
 const SERVICE_CARDS = [
   {
-    title: "New patients",
-    body: "First visit to Smile Loft? Your free exam and X-rays give us — and you — a full picture from day one.",
-    photo: STOCK_PHOTOS.friendlyCheckup,
+    title: "Missing one tooth",
+    body: "Whether it's one tooth or several, we'll walk through every option worth considering for your situation.",
+    photo: STOCK_PHOTOS.clinicianPortrait,
   },
   {
-    title: "Returning patients",
-    body: "Due for routine care? The same complimentary exam and X-ray visit is available any time you're due.",
-    photo: STOCK_PHOTOS.patientRelaxed,
+    title: "Re-evaluating options",
+    body: "Explored implants before and weren't sure? A fresh, honest evaluation with no guaranteed-candidacy claims.",
+    photo: STOCK_PHOTOS.procedureClose,
   },
 ];
 
 const FAQS = [
-  { question: "Is this really free?", answer: "Yes — the comprehensive exam, digital X-rays, and treatment plan are all complimentary with no obligation to schedule further treatment." },
-  { question: "Do you accept my insurance?", answer: "We work with most major dental insurance plans. Bring your insurance card and our team will help verify your benefits." },
-  { question: "What should I bring?", answer: "A photo ID and insurance card if you have one. Prior X-rays are helpful but not required." },
-  { question: "How long does the visit take?", answer: "Most first visits take about 45–60 minutes, including your exam, X-rays, and plan review." },
-  { question: "Is this only for new patients?", answer: "Not at all — available for new patients and returning patients due for routine care." },
+  {
+    question: "How do I know if I'm a candidate for implants?",
+    answer:
+      "Candidacy depends on an individual evaluation — your oral health, bone support, and goals. That's exactly what the consultation is for, not something a photo or online quiz can answer.",
+  },
+  {
+    question: "What might dental implants cost?",
+    answer:
+      "It depends on your individual plan — the number of teeth being replaced, bone support, and restoration type. We'll walk through cost considerations openly during your consultation, not a generic number.",
+  },
+  {
+    question: "Will I need dental imaging?",
+    answer:
+      "An exam and dental imaging may be recommended when clinically appropriate, to get a closer look at your teeth, gums, and bone support before discussing options.",
+  },
+  {
+    question: "Will I be pressured to decide at this visit?",
+    answer:
+      "No. There's no expectation you commit to treatment during the consultation — the goal is to help you understand your options first.",
+  },
+  {
+    question: "What if I'm replacing more than one tooth?",
+    answer:
+      "We'll talk through options for a single tooth, several teeth, or broader tooth loss — whatever applies to your individual situation.",
+  },
+];
+
+const PROCESS_STEPS = [
+  { title: "Quick check-in", body: "A friendly welcome — you don't need to know your treatment yet." },
+  { title: "Talk about your goals", body: "Comfort, timing, appearance, function, and cost — whatever matters to you." },
+  { title: "Review images if needed", body: "Imaging when clinically appropriate to evaluate bone support and structure." },
+  { title: "Review your options", body: "The team talks through possible next steps based on the findings." },
 ];
 
 const DOCTORS = [
@@ -94,16 +117,15 @@ const LOCATION_PHOTOS = [
 
 const TESTIMONIALS = [
   {
-    name: "Nancy Foster",
-    quote:
-      "I have been coming to this office for many years, and always find them welcoming. The staff takes time to explain everything clearly, and I never feel rushed or like just another appointment on the schedule.",
-    photo: STOCK_PHOTOS.teamReviewing,
+    name: "Marcus T.",
+    quote: "Honest, no-pressure conversation — they explained everything about implants in plain language before I decided anything.",
+    photo: STOCK_PHOTOS.clinicianPortrait,
   },
   {
     name: "Daniel Ruiz",
     quote:
-      "The free exam and X-ray visit was easy to book and the whole team walked me through everything on screen. No pressure, no surprise costs — just a clear plan.",
-    photo: STOCK_PHOTOS.handsWithModel,
+      "The consultation was easy to book and the whole team walked me through everything on screen. No pressure, no surprise costs — just a clear plan.",
+    photo: STOCK_PHOTOS.procedureClose,
   },
   {
     name: "Priya Nair",
@@ -126,7 +148,7 @@ function HeadlineWords({ text }: { text: string }) {
             transition={{ duration: 0.7, delay: reduce ? 0 : i * 0.08, ease: [0.16, 1, 0.3, 1] }}
             className="inline-block"
           >
-            {w === "X-Ray" ? <span className="whitespace-nowrap">{w}</span> : w}
+            {w}
           </motion.span>
           {i < words.length - 1 ? " " : ""}
         </span>
@@ -135,14 +157,14 @@ function HeadlineWords({ text }: { text: string }) {
   );
 }
 
-export default function Concept5() {
+export default function Concept5Implants() {
   return (
     <div className="silenus min-h-screen">
       <Header
         className="relative z-20 bg-transparent"
         logoChipClassName="bg-white"
         ctaClassName="bg-[#bb9d81] text-[#141414]"
-        ctaLabel="Book Free Exam"
+        ctaLabel="Book Free Consult"
         ctaShimmer
       />
 
@@ -154,35 +176,31 @@ export default function Concept5() {
             focus="75% center"
             overlayClassName="bg-[#141414]/35 bg-gradient-to-b from-transparent via-transparent to-[#141414]"
           />
-          {/* top readability gradient behind the header, same treatment as the bottom band */}
           <div
             aria-hidden
             className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-[320px] bg-gradient-to-b from-[#141414] to-transparent"
           />
-          {/* extra readability gradient concentrated in the bottom band where text sits */}
           <div
             aria-hidden
             className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-[65%] bg-gradient-to-b from-transparent via-[#141414]/80 to-[#141414] sm:h-[320px]"
           />
 
           <div className="relative z-10 mx-auto flex w-full max-w-[1320px] flex-col items-end gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
-            {/* Left block — headline, right-aligned text within a left column */}
-            <div className="w-full max-w-[560px] lg:max-w-[440px]">
+            <div className="w-full max-w-[560px] lg:max-w-[460px]">
               <h1 className="sl-h72">
-                <HeadlineWords text="Free Dental Exam & X-Ray" />
+                <HeadlineWords text="Are Implants an Option for Me?" />
               </h1>
             </div>
 
-            {/* Right block — supporting subtext, right-justified */}
             <ScrollReveal once={false} direction="up" delay={0.25} className="w-full max-w-[560px] text-right lg:max-w-[60%]">
               <p className="sl-p28">
-                A comprehensive look at your oral health — reviewed with you on screen, and
-                explained in plain language.
+                It starts with an individual evaluation — your oral health, bone support, and
+                goals. Not a generic recommendation.
               </p>
               <div className="mt-6 flex justify-end">
                 <a href="#lead-form">
                   <ShimmerButton className="bg-[#bb9d81] text-[#141414]">
-                    Book My Free Exam &amp; X-Ray
+                    Book My Free Consultation
                   </ShimmerButton>
                 </a>
               </div>
@@ -204,32 +222,31 @@ export default function Concept5() {
           />
         </div>
 
-        {/* ---------------- About us ---------------- */}
+        {/* ---------------- What changes for you ---------------- */}
         <section className="px-6 py-[88px] sm:px-8">
           <div className="mx-auto max-w-[1200px]">
             <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
               <ScrollReveal once={false} direction="left">
-                <p className="sl-h18 mb-4 uppercase tracking-[0.1em]">About Smile Loft</p>
+                <p className="sl-h18 mb-4 uppercase tracking-[0.1em]">What changes for you</p>
                 <h2 className="sl-h24 !text-left text-[28px] sm:text-[34px]">
-                  A dental practice built around you, not the clock
+                  An honest answer, not a guess
                 </h2>
                 <p className="sl-p18 mt-5 max-w-lg text-white">
-                  Across 10 Maryland locations, Smile Loft Dental pairs modern digital
-                  imaging with a genuinely unhurried visit. Every appointment starts with a
-                  real conversation — we listen first, examine thoroughly, and walk you
-                  through exactly what we&apos;re seeing, on screen, before anything is ever
-                  scheduled.
+                  No guaranteed candidacy claims — a real evaluation of your teeth, bone
+                  support, and health history. We&apos;ll discuss cost considerations openly,
+                  before you decide anything.
                 </p>
                 <p className="sl-p18 mt-4 max-w-lg text-white">
-                  No pressure, no surprise bills — just a clear plan you can think over on
-                  your own timeline.
+                  Whether it&apos;s one tooth or several, understand every option worth
+                  considering. There&apos;s no pressure, ever — every question gets an honest
+                  answer.
                 </p>
               </ScrollReveal>
               <ScrollReveal once={false} direction="scale" delay={0.1} className="relative aspect-[5/4] overflow-hidden rounded-2xl">
                 <Parallax yRange={[-20, 20]} className="absolute inset-0">
                   <Image
-                    src={unsplashUrl(STOCK_PHOTOS.emptyOperatory.id, 900)}
-                    alt={STOCK_PHOTOS.emptyOperatory.alt}
+                    src={unsplashUrl(STOCK_PHOTOS.clinicianPortrait.id, 900)}
+                    alt={STOCK_PHOTOS.clinicianPortrait.alt}
                     fill
                     sizes="(min-width: 1024px) 45vw, 100vw"
                     style={{ objectFit: "cover" }}
@@ -244,8 +261,8 @@ export default function Concept5() {
         <section id="services" className="bg-white/[0.02] px-6 py-[88px] sm:px-8">
           <div className="mx-auto max-w-[1100px]">
             <ScrollReveal once={false} className="mb-10 text-center">
-              <p className="sl-h18 mb-3 uppercase tracking-[0.1em]">What&apos;s included</p>
-              <h2 className="sl-h64">Your free visit, in detail</h2>
+              <p className="sl-h18 mb-3 uppercase tracking-[0.1em]">What&apos;s included — a $150 value, free</p>
+              <h2 className="sl-h64">Your consultation, in detail</h2>
             </ScrollReveal>
             <ScrollRevealGroup once={false} className="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2">
               {SERVICE_ACCORDION_ITEMS.map((item) => (
@@ -263,12 +280,14 @@ export default function Concept5() {
           </div>
         </section>
 
-        {/* ---------------- Services (static cards) ---------------- */}
+        {/* ---------------- Who it's for ---------------- */}
         <section className="px-6 py-[88px] sm:px-8">
           <div className="mx-auto max-w-[1200px]">
             <ScrollReveal once={false} className="mb-10 max-w-[600px]">
               <p className="sl-h18 mb-3 uppercase tracking-[0.1em]">Who it&apos;s for</p>
-              <h2 className="sl-h24 !text-left text-[28px] sm:text-[34px]">Every visit welcome</h2>
+              <h2 className="sl-h24 !text-left text-[28px] sm:text-[34px]">
+                You don&apos;t need to arrive already knowing if you&apos;re a candidate
+              </h2>
             </ScrollReveal>
             <ScrollRevealGroup once={false} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {SERVICE_CARDS.map((card) => (
@@ -294,8 +313,29 @@ export default function Concept5() {
           </div>
         </section>
 
-        {/* ---------------- Doctors ---------------- */}
+        {/* ---------------- Process ---------------- */}
         <section className="bg-white/[0.02] px-6 py-[88px] sm:px-8">
+          <div className="mx-auto max-w-[1100px]">
+            <ScrollReveal once={false} className="mb-10 text-center">
+              <p className="sl-h18 mb-3 uppercase tracking-[0.1em]">The process</p>
+              <h2 className="sl-h64">Your consultation, in four simple steps</h2>
+            </ScrollReveal>
+            <ScrollRevealGroup once={false} className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {PROCESS_STEPS.map((step, i) => (
+                <RevealItem key={step.title}>
+                  <div className="h-full rounded-2xl border border-[#bb9d81]/20 bg-white/5 p-6">
+                    <span className="sl-h18 text-2xl">{String(i + 1).padStart(2, "0")}</span>
+                    <h3 className="mt-3 font-sans text-lg font-bold text-[#bb9d81]">{step.title}</h3>
+                    <p className="mt-2 text-sm opacity-70">{step.body}</p>
+                  </div>
+                </RevealItem>
+              ))}
+            </ScrollRevealGroup>
+          </div>
+        </section>
+
+        {/* ---------------- Doctors ---------------- */}
+        <section className="px-6 py-[88px] sm:px-8">
           <div className="mx-auto max-w-[1200px]">
             <ScrollReveal once={false} className="mb-10 text-center">
               <p className="sl-h18 mb-3 uppercase tracking-[0.1em]">Meet the doctors</p>
@@ -308,7 +348,7 @@ export default function Concept5() {
         </section>
 
         {/* ---------------- Locations ---------------- */}
-        <section className="px-6 py-[88px] sm:px-8">
+        <section className="bg-white/[0.02] px-6 py-[88px] sm:px-8">
           <div className="mx-auto max-w-[1320px]">
             <ScrollReveal once={false} className="mb-10 text-center">
               <p className="sl-h18 mb-3 uppercase tracking-[0.1em]">10 Maryland locations</p>
@@ -383,7 +423,7 @@ export default function Concept5() {
           <div className="mx-auto max-w-[760px]">
             <ScrollReveal once={false} className="mb-10 text-center">
               <p className="sl-h18 mb-3 uppercase tracking-[0.1em]">Questions</p>
-              <h2 className="sl-h64">Frequently asked questions</h2>
+              <h2 className="sl-h64">Common questions</h2>
             </ScrollReveal>
             <ScrollReveal once={false}>
               <FaqAccordion
@@ -405,10 +445,10 @@ export default function Concept5() {
           <div className="relative mx-auto max-w-[720px]">
             <ScrollReveal once={false} className="mb-10 text-center">
               <p className="sl-h18 mb-3 uppercase tracking-[0.1em]">Get started</p>
-              <h2 className="sl-h64">Book My Free Exam &amp; X-Ray</h2>
+              <h2 className="sl-h64">Book My Free Consultation</h2>
               <p className="sl-p18 mx-auto mt-4 max-w-md text-white">
-                No cost, no obligation — new and returning patients welcome across all 10
-                Maryland locations.
+                No cost, no obligation — available for new patients and anyone re-evaluating
+                treatment options, across all 10 Maryland locations.
               </p>
             </ScrollReveal>
             <ScrollReveal once={false} direction="scale" delay={0.1} className="rounded-3xl border border-[#bb9d81]/20 bg-white/5 p-6 shadow-2xl backdrop-blur-xl sm:p-9">
@@ -416,8 +456,11 @@ export default function Concept5() {
                 accentClassName="bg-[#bb9d81] text-[#141414]"
                 successIconClassName="text-[#bb9d81]"
                 titleClassName="text-[#bb9d81]"
+                title="Book My Free Consultation"
+                submitLabel="Book My Free Consultation"
+                lead="Takes about 60 seconds. No payment, no obligation."
                 concept="Concept 5"
-                campaign="Free Exam & X-Ray"
+                campaign="Implants Consult"
               />
             </ScrollReveal>
           </div>
@@ -426,7 +469,7 @@ export default function Concept5() {
         {/* ---------------- Trust strip ---------------- */}
         <section className="px-6 pb-[88px] sm:px-8">
           <ScrollReveal once={false} className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-center gap-x-8 gap-y-3 text-center text-sm font-semibold text-[#bb9d81]">
-            {["10 Maryland locations", "No cost, no obligation", "New & returning patients welcome", "Most insurance accepted"].map((t) => (
+            {["Careful, individual evaluation", "Plain-language answers", "Convenient MD locations", "No-pressure consultation"].map((t) => (
               <span key={t} className="inline-flex items-center gap-2">
                 <CheckCircle2 className="h-4 w-4 text-[#bb9d81]" />
                 {t}
@@ -437,7 +480,7 @@ export default function Concept5() {
       </main>
 
       <Footer className="text-[#dedede]/50" />
-      <StickyCtaBar className="bg-[#bb9d81] text-[#141414]" />
+      <StickyCtaBar className="bg-[#bb9d81] text-[#141414]" label="Book My Free Consultation" />
     </div>
   );
 }

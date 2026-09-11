@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState, type FormEvent } from "react";
+import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { CheckCircle2, AlertCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -28,21 +28,41 @@ type Errors = Partial<Record<keyof FormValues, string>>;
 
 const EMPTY: FormValues = { name: "", phone: "", email: "", location: "" };
 
+// Matches something shaped like "name@domain.tld" — stricter than a bare
+// "has an @ and a dot" check, still permissive enough for real addresses.
+const EMAIL_RE = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,}$/;
+// A run of 3+ identical digits repeated across the whole number (e.g.
+// 0000000000, 1111111111) is never a real phone number.
+const REPEATED_DIGITS_RE = /^(\d)\1+$/;
+
 function validate(values: FormValues): Errors {
   const errors: Errors = {};
-  if (!values.name.trim() || values.name.trim().length < 2) {
+
+  const name = values.name.trim();
+  if (!name || name.length < 2) {
     errors.name = "Please enter your full name.";
+  } else if (name.length > 80) {
+    errors.name = "That name looks too long — please shorten it.";
+  } else if (!/[a-zA-Z]/.test(name)) {
+    errors.name = "Please enter a valid name.";
   }
+
   const phoneDigits = values.phone.replace(/\D/g, "");
-  if (phoneDigits.length < 10) {
+  if (phoneDigits.length < 10 || phoneDigits.length > 15) {
+    errors.phone = "Please enter a valid phone number.";
+  } else if (REPEATED_DIGITS_RE.test(phoneDigits)) {
     errors.phone = "Please enter a valid phone number.";
   }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) {
+
+  const email = values.email.trim();
+  if (!email || email.length > 254 || !EMAIL_RE.test(email)) {
     errors.email = "Please enter a valid email address.";
   }
+
   if (!values.location) {
     errors.location = "Please select a location.";
   }
+
   return errors;
 }
 
@@ -56,6 +76,7 @@ export function LeadForm({
   lead = "For new patients and those returning to routine care. Takes about 60 seconds.",
   successIconClassName = "text-primary",
   concept,
+  campaign,
 }: {
   id?: string;
   className?: string;
@@ -67,6 +88,8 @@ export function LeadForm({
   successIconClassName?: string;
   /** Which concept page this form lives on (e.g. "Concept 5") — recorded with the submission. */
   concept?: string;
+  /** Which campaign this form is for (e.g. "Invisalign Consult") — recorded with the submission. */
+  campaign?: string;
 }) {
   const uid = useId();
   const reduce = useReducedMotion();
@@ -76,6 +99,12 @@ export function LeadForm({
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState(false);
   const [honeypot, setHoneypot] = useState("");
+  // No real person fills this form in under ~1.5s of it rendering; a
+  // scripted bot that skips the honeypot often submits near-instantly.
+  const renderedAt = useRef<number | null>(null);
+  useEffect(() => {
+    renderedAt.current = Date.now();
+  }, []);
 
   function update<K extends keyof FormValues>(key: K, value: FormValues[K]) {
     setValues((v) => ({ ...v, [key]: value }));
@@ -116,8 +145,10 @@ export function LeadForm({
           email: values.email.trim(),
           location: values.location,
           concept: concept ?? "",
+          campaign: campaign ?? "",
           sourcePage: typeof window !== "undefined" ? window.location.pathname : "",
           website: honeypot,
+          elapsedMs: Date.now() - (renderedAt.current ?? Date.now()),
         }),
       });
       const data = await res.json();
@@ -166,6 +197,7 @@ export function LeadForm({
                     name="name"
                     type="text"
                     autoComplete="name"
+                    maxLength={80}
                     value={values.name}
                     onChange={(e) => update("name", e.target.value)}
                     className={fieldInputClass(!!errors.name)}
@@ -177,6 +209,7 @@ export function LeadForm({
                     name="phone"
                     type="tel"
                     autoComplete="tel"
+                    maxLength={20}
                     value={values.phone}
                     onChange={(e) => update("phone", e.target.value)}
                     className={fieldInputClass(!!errors.phone)}
@@ -190,6 +223,7 @@ export function LeadForm({
                   name="email"
                   type="email"
                   autoComplete="email"
+                  maxLength={254}
                   value={values.email}
                   onChange={(e) => update("email", e.target.value)}
                   className={fieldInputClass(!!errors.email)}
