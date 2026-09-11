@@ -2,7 +2,7 @@
 
 import { useId, useState, type FormEvent } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, AlertCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { LOCATIONS } from "@/lib/locations";
 import { Label } from "@/components/ui/label";
@@ -13,6 +13,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+
+const ENDPOINT = process.env.NEXT_PUBLIC_LEAD_FORM_ENDPOINT;
+const SECRET = process.env.NEXT_PUBLIC_LEAD_FORM_SECRET;
 
 type FormValues = {
   name: string;
@@ -52,6 +55,7 @@ export function LeadForm({
   titleClassName,
   lead = "For new patients and those returning to routine care. Takes about 60 seconds.",
   successIconClassName = "text-primary",
+  concept,
 }: {
   id?: string;
   className?: string;
@@ -61,6 +65,8 @@ export function LeadForm({
   titleClassName?: string;
   lead?: string;
   successIconClassName?: string;
+  /** Which concept page this form lives on (e.g. "Concept 5") — recorded with the submission. */
+  concept?: string;
 }) {
   const uid = useId();
   const reduce = useReducedMotion();
@@ -68,23 +74,60 @@ export function LeadForm({
   const [errors, setErrors] = useState<Errors>({});
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
+  const [honeypot, setHoneypot] = useState("");
 
   function update<K extends keyof FormValues>(key: K, value: FormValues[K]) {
     setValues((v) => ({ ...v, [key]: value }));
     if (errors[key]) setErrors((e) => ({ ...e, [key]: undefined }));
   }
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     const nextErrors = validate(values);
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
 
+    setSubmitError(false);
     setSubmitting(true);
-    window.setTimeout(() => {
+
+    // Bots that fill every field (including hidden ones) trip the honeypot;
+    // silently pretend success without actually recording anything.
+    if (honeypot) {
       setSubmitting(false);
       setSubmitted(true);
-    }, 500);
+      return;
+    }
+
+    if (!ENDPOINT || !SECRET) {
+      setSubmitting(false);
+      setSubmitError(true);
+      return;
+    }
+
+    try {
+      const res = await fetch(ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          secret: SECRET,
+          name: values.name.trim(),
+          phone: values.phone.trim(),
+          email: values.email.trim(),
+          location: values.location,
+          concept: concept ?? "",
+          sourcePage: typeof window !== "undefined" ? window.location.pathname : "",
+          website: honeypot,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) throw new Error("submit_failed");
+      setSubmitted(true);
+    } catch {
+      setSubmitError(true);
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -102,6 +145,20 @@ export function LeadForm({
             <p className="mt-2 text-sm opacity-80 sm:text-base">{lead}</p>
 
             <form noValidate onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
+              {/* Honeypot: hidden from real users, but bots that fill every field trip it. */}
+              <div aria-hidden className="absolute left-[-9999px] top-auto h-0 w-0 overflow-hidden">
+                <label htmlFor={`${uid}-website`}>Website</label>
+                <input
+                  id={`${uid}-website`}
+                  name="website"
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
+                />
+              </div>
+
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <Field label="Full name" htmlFor={`${uid}-name`} error={errors.name}>
                   <input
@@ -162,6 +219,13 @@ export function LeadForm({
                   </SelectContent>
                 </Select>
               </Field>
+
+              {submitError && (
+                <p role="alert" className="flex items-center gap-2 text-sm font-medium text-red-600">
+                  <AlertCircle className="h-4 w-4 shrink-0" />
+                  Something went wrong sending your request. Please try again, or call us directly.
+                </p>
+              )}
 
               <motion.button
                 type="submit"

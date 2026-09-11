@@ -416,6 +416,7 @@ export default function Concept5() {
                 accentClassName="bg-[#bb9d81] text-[#141414]"
                 successIconClassName="text-[#bb9d81]"
                 titleClassName="text-[#bb9d81]"
+                concept="Concept 5"
               />
             </ScrollReveal>
           </div>

@@ -279,7 +279,7 @@ export default function Concept2() {
                 </div>
               </Parallax>
               <ScrollReveal once={false} id="lead-form" className="rounded-3xl border border-[#48120e]/10 bg-white p-6 shadow-lg sm:p-9">
-                <LeadForm accentClassName="bg-[#8a7a63] text-white" successIconClassName="text-[#8a7a63]" />
+                <LeadForm accentClassName="bg-[#8a7a63] text-white" successIconClassName="text-[#8a7a63]" concept="Concept 2" />
               </ScrollReveal>
             </div>
           </div>

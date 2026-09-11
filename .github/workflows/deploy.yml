@@ -36,6 +36,8 @@ jobs:
         working-directory: app
         env:
           GITHUB_PAGES: "true"
+          NEXT_PUBLIC_LEAD_FORM_ENDPOINT: ${{ secrets.LEAD_FORM_ENDPOINT }}
+          NEXT_PUBLIC_LEAD_FORM_SECRET: ${{ secrets.LEAD_FORM_SECRET }}
         run: npm run build
 
       - name: Setup Pages
