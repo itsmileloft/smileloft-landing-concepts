@@ -111,6 +111,10 @@ export function LeadForm({
     if (errors[key]) setErrors((e) => ({ ...e, [key]: undefined }));
   }
 
+  function validateField(key: keyof FormValues) {
+    setErrors((e) => ({ ...e, [key]: validate(values)[key] }));
+  }
+
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     const nextErrors = validate(values);
@@ -151,7 +155,26 @@ export function LeadForm({
           elapsedMs: Date.now() - (renderedAt.current ?? Date.now()),
         }),
       });
-      const data = await res.json();
+
+      // Apps Script's redirect-to-googleusercontent.com response hop is
+      // occasionally slow/flaky to read in the browser even though the
+      // POST itself already reached the script and wrote the row. A
+      // request that reached the server (res.ok true) but then failed to
+      // parse is treated as a likely success rather than a hard error, so
+      // we don't show a false failure for a submission that already went
+      // through — a genuine `ok:false` from the script (bad secret,
+      // failed validation) still surfaces as a real error below.
+      let data: { ok?: boolean } = {};
+      try {
+        data = await res.json();
+      } catch {
+        if (res.ok) {
+          setSubmitted(true);
+          return;
+        }
+        throw new Error("submit_failed");
+      }
+
       if (!res.ok || !data.ok) throw new Error("submit_failed");
       setSubmitted(true);
     } catch {
@@ -200,6 +223,7 @@ export function LeadForm({
                     maxLength={80}
                     value={values.name}
                     onChange={(e) => update("name", e.target.value)}
+                    onBlur={() => validateField("name")}
                     className={fieldInputClass(!!errors.name)}
                   />
                 </Field>
@@ -208,10 +232,12 @@ export function LeadForm({
                     id={`${uid}-phone`}
                     name="phone"
                     type="tel"
+                    inputMode="tel"
                     autoComplete="tel"
                     maxLength={20}
                     value={values.phone}
-                    onChange={(e) => update("phone", e.target.value)}
+                    onChange={(e) => update("phone", e.target.value.replace(/[^\d\s()+-]/g, ""))}
+                    onBlur={() => validateField("phone")}
                     className={fieldInputClass(!!errors.phone)}
                   />
                 </Field>
@@ -226,6 +252,7 @@ export function LeadForm({
                   maxLength={254}
                   value={values.email}
                   onChange={(e) => update("email", e.target.value)}
+                  onBlur={() => validateField("email")}
                   className={fieldInputClass(!!errors.email)}
                 />
               </Field>
