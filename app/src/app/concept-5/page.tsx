@@ -333,7 +333,7 @@ export default function Concept5() {
                     alt={LOCATION_PHOTOS[i % LOCATION_PHOTOS.length].alt}
                     fill
                     sizes="300px"
-                    style={{ objectFit: "cover" }}
+                    style={{ objectFit: "cover", objectPosition: "top" }}
                   />
                 )}
               />
