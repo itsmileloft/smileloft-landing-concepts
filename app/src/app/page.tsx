@@ -6,9 +6,8 @@ const CONCEPTS = [
   { href: "/concept-5", label: "Concept 5 — Free Exam & X-Ray", thumb: "concept-5" },
   { href: "/concept-5-invisalign", label: "Concept 5 — Invisalign Consult", thumb: "concept-5-invisalign" },
   { href: "/concept-5-implants", label: "Concept 5 — Implants Consult", thumb: "concept-5-implants" },
-  { href: "/concept-2", label: "Concept 2 — Free Exam & X-Ray", thumb: "concept-2" },
-  { href: "/concept-2-invisalign", label: "Concept 2 — Invisalign Consult", thumb: "concept-2-invisalign" },
-  { href: "/concept-2-implants", label: "Concept 2 — Implants Consult", thumb: "concept-2-implants" },
+  // Concept 2 unlisted (not deleted) — still reachable at /concept-2,
+  // /concept-2-invisalign, /concept-2-implants.
 ];
 
 export default function Home() {
